@@ -1,6 +1,10 @@
 from logging import exception
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, logout
+from django.contrib.auth import login as login_django
+from django.contrib.auth.decorators import login_required
 
 from random import randint
 from time import sleep
@@ -18,13 +22,56 @@ def login_render(request):
 
         return HttpResponse("Error to process the page of login. Error: {}".format(error))
 
+def create_user(request):
+    try:
+        if request.method == 'POST':
+
+            unique_id = randint(0,777)  
+            username = request.POST.get('user')
+            password = request.POST.get('password')
+            user = User.objects.filter(username=username).first()
+            if user:
+                return HttpResponse("Tjis user exist in us db")
+
+            user = User.objects.create_user(username=username, password=password)
+            user.save()
+            return HttpResponse("Created user")
+
+
+    except Exception as error:
+        print(error)
+
+def login_user(request):
+    
+    try:
+        username = request.POST.get('user')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            login_django(request, user)
+            return HttpResponse('OK')
+        else:
+            return HttpResponse('NO')
+
+    except Exception as error:
+        print(error)
+
+def logout_user(request):
+    logout(request)
+    return HttpResponse("Logout")
+
+@login_required
 def home(request):
     
     try:
-        
+        #if request.user.is_authenticated:
+
         topics = Topics.objects.all()
         return render(request, 'pages/index.html', {"topics":topics})
-
+        #else:
+        return HttpResponse('Precisa')
     except Exception as error:
 
         return HttpResponse(error)

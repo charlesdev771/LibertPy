@@ -39,6 +39,10 @@
           <li class="nav-item">
             <a class="nav-link active" href="{% url 'topics_view' %}">Topics</a>
           </li>
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'logout_user' %}">Logount</a>
+          {% endif %}
         </ul>
       </div>
 
@@ -88,32 +92,40 @@
                 Your created topics
               </h1>
 
-            {% for topic in topics  %}
-      
-              {% if not topic %}
-                  <h1 class="text-center text-dark display-4">
-                    Erro na exibição dos dados...
-                  </h1>
-              {% else %}
-                <div class="container mt-3 mb-3">
-                  <article class="card">
-                    <section class="col-sm-12 bg-dark text-white" id="user_topics">
-                    <h2 class="card-title text-center col-sm-12">{{ topic.title_topic }}</h2>
-                    <p class="card-text text-center">{{topic.text_topic}}</p>
+              {% if user.is_authenticated %}
+
+                {% for topic in topics  %}
+          
+                  {% if not topic %}
+                      <h1 class="text-center text-dark display-4">
+                        Erro na exibição dos dados...
+                      </h1>
+                  {% else %}
+                    <div class="container mt-3 mb-3">
+                      <article class="card">
+                        <section class="col-sm-12 bg-dark text-white" id="user_topics">
+                        <h2 class="card-title text-center col-sm-12">{{ topic.title_topic }}</h2>
+                        <p class="card-text text-center">{{topic.text_topic}}</p>
+                      </section>
+                    </div>
+                  
+                {% endif %}
+                  
+              {% endfor %}
+          
+                      </div>
+                    </div>
                   </section>
                 </div>
-              
-            {% endif %}
-              
-          {% endfor %}
-      
-                  </div>
-                </div>
-              </section>
+              </div>
             </div>
-          </div>
-        </div>
-      </div> 
+          </div> 
+
+          {% else %}
+
+          <h1>sjdjsdi</h1>
+
+          {%endif%}
 
 
 

@@ -53,6 +53,8 @@
 
                         <div class="col-lg-8 mt-3">
                             <h1 class="text-success text-center">Create account or login</h1>
+                            <h2 class="text-success text-center">Recomendation: Create a new email to login in  LibertPy</h2>
+
                             
                             <div class="row">
                     
@@ -60,10 +62,11 @@
 
                                 <h4>Create account</h4>
 
-                                <form class="form-cadastro" action="" method="POST">
+                                <form class="form-cadastro" action="{% url 'create_user' %}" method="POST">
+                                    {% csrf_token %}
                                     <div class="form-group">
-                                        <label>e-mail</label>
-                                        <input type="email" class="form-control" name="email">
+                                        <label>User</label>
+                                        <input type="user" class="form-control" name="user">
                                     </div>
                                     <div class="form-group">
                                         <label>password</label>
@@ -76,10 +79,12 @@
               
                       <div class="col-lg mt-3">
                         <h4>Login</h4>              
-                        <form class="form-login" action="/login/login" method="POST">
+                        <form class="form-login" action="{% url 'login_user' %}" method="POST">
+                            {% csrf_token %}
+
                           <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" name="email">
+                            <label>User</label>
+                            <input type="text" class="form-control" name="user">
                           </div>
                           <div class="form-group">
                             <label>Password</label>
@@ -98,7 +103,7 @@
                   <div class="col-lg-2"></div>
                 </div>
               </div>   
-              
+
 
   <div class="text-center p-4 mt-5" style="background-color: rgba(0, 0, 0, 0.05);">
     <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Created by: chameleon 2022</a>
