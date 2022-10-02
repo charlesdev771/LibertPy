@@ -1,0 +1,105 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="author" content="chameleon">
+      <meta name="description" content="Forum criado por chameleon para discurções sobre hacking, tecnologia e liberdade">
+      <meta name="keywords" content="Liberdade, expressao, hacker, hacking, programacao, tecnologia, chameleon">
+    <!-- END Required meta tags -->
+
+      <!-- Bootstrap CSS< JS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- END Bootstrap CSS< JS -->
+
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <title>LibertS</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+      <a class="navbar-brand" href="{% url 'home' %}">LibertPy</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#drop" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="drop">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'topics_view' %}">Topics</a>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+
+
+    {% for topic in topics  %}
+      
+      {% if not topic %}
+          <h1 class="text-center text-dark display-1">
+            Erro na exibição dos dados...
+          </h1>
+      {% else %}
+        <section class="bg-light" id="receitas">
+          <div class="container">
+            <div class="row justify-content-center">
+                <article class="card bord-card imagem-card p-0 m-4 col-12 col-md-4">
+                    <div class="card-body">
+                      <h2 class="card-title text-center">{{ topic.title_topic }}</h2>
+                      <p class="card-text text-justify">{{topic.text_topic}}</p>
+                    </div>
+                </article>
+
+            </div>
+          </div>
+        </section>
+        
+      {% endif %}
+        
+    {% endfor %}
+
+
+<footer class="text-center text-lg-start bg-dark text-muted">
+
+
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <div class="row mt-3">
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>Company name
+          </h6>
+          <p>
+            GITHUB: https://github.com/charlesdev771/LibertPy
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Created by: chameleon 2022</a>
+  </div>
+</footer>
+
+
+
+
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+  </body>
+</html>
