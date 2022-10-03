@@ -3,6 +3,16 @@ body
     background-color: #333;
 }
 
+.navbar-black
+{
+    background-color: #111;
+}
+
+.link-houver:hover
+{
+    color: #333;
+}
+
 .footer
 {
     margin-top: 100%;
