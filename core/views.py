@@ -1,4 +1,5 @@
 from logging import exception
+import re
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -30,12 +31,11 @@ def create_user(request):
             password = request.POST.get('password')
             user = User.objects.filter(username=username).first()
             if user:
-                return HttpResponse("Tjis user exist in us db")
+                return HttpResponse("This user exist in us db")
 
             user = User.objects.create_user(username=username, password=password)
             user.save()
-            return HttpResponse("Created user")
-
+            return render(request, 'pages/login.html')
 
     except Exception as error:
         print(error)
@@ -50,7 +50,8 @@ def login_user(request):
 
         if user:
             login_django(request, user)
-            return HttpResponse('OK')
+            topics = Topics.objects.all()
+            return render(request, 'pages/index.html', {"topics":topics})
         else:
             return HttpResponse('NO')
 
@@ -58,8 +59,12 @@ def login_user(request):
         print(error)
 
 def logout_user(request):
-    logout(request)
-    return HttpResponse("Logout")
+    try:
+        logout(request)
+        return render(request, 'pages/login.html')
+    except Exception as error:
+        return HttpResponse(error)
+
 
 @login_required
 def home(request):
@@ -75,6 +80,7 @@ def home(request):
 
         return HttpResponse(error)
 
+
 def topics_view(request):
     try:
         
@@ -83,7 +89,8 @@ def topics_view(request):
 
     except Exception as error:
         
-        return HttpResponse("Error in processing the topics page")
+        return HttpResponse(error)
+
 
 def save_data(request):
     
@@ -103,6 +110,7 @@ def save_data(request):
         
         return HttpResponse("Error in processing the data. Try again...")
 
+@login_required
 def update_render(request, p_key):
     
     try:
@@ -113,7 +121,8 @@ def update_render(request, p_key):
     except Exception as error:
         
       print('Error in processing the topics page')        
-    
+
+@login_required  
 def update_topic(request, p_key):
     
     try:
@@ -132,6 +141,7 @@ def update_topic(request, p_key):
     
         print('Error in updated the topic'.format(error))        
 
+@login_required
 def delete_render(request, p_key):
     
     try:
@@ -143,7 +153,7 @@ def delete_render(request, p_key):
       
         print('Error in render the topic'.format(error))        
 
-
+@login_required
 def delete_topic(request, p_key):
     
     try:
@@ -158,7 +168,7 @@ def delete_topic(request, p_key):
         
         print('Error in delete the topic'.format(error))        
 
-
+@login_required
 def view_detail(request, p_key):
 
     try:
@@ -171,6 +181,7 @@ def view_detail(request, p_key):
         
         return HttpResponse(error) 
 
+@login_required
 def make_comment(request, p_key):
     
     try:

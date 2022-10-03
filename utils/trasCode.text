@@ -1,0 +1,4 @@
+                      <!--
+                      <a class="btn btn-primary text-center" href="{% url 'update_render' topic.p_key %}">Edit</a>
+                      <a class="btn btn-danger text-center" href="{% url 'delete_render' topic.p_key %}">Delete</a>
+                      -->

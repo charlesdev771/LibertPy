@@ -55,43 +55,56 @@
   
       </nav>
 
-    <ul>
 
-      <h2 class="card-title text-center">{{ topics.title_topic }}</h2>
-      <p class="card-text text-justify">{{topics.text_topic}}</p>
-
-    </ul>
-
-    <section class="bg-light" id="topic">
+    <section class="mt-5" id="topic">
         <div class="container">
           <div class="row justify-content-center">
-              <article class="card borda-card imagem-card p-0 m-4 col-12 col-md-4">
+              <article class="card borda-card imagem-card p-0 m-4 col-12 col-md-9 bg-dark">
                   <div class="card-body">
                     <h2 class="card-title text-center">{{ topics.title_topic }}</h2>
-                    <p class="card-text text-justify">{{topics.text_topic}}</p>
+                    <p class="card-text text-justify text-white">{{topics.text_topic}}</p>
                   </div>
               </article>
 
           </div>
         </div>
       </section>
+      <div id="COMENTER" class="COMENTER">
 
-        {% if  user.is_authenticated %}
-            <form action="{% url 'make_comment' topics.p_key %}", method="post">
-                {% csrf_token %}
-                <input type="text" name="comment" placeholder="Yout comment">
-                <input type="submit" value="Salvar">
-            </form>
-        {% else %}
-            <h1 class="text-center text-danger mt-3 mb-3 display-4">
-                You need to login
-            </h1>
-        {% endif %}
+        <div id="comenter" class="comenter">
 
-        
-        {% for comments in coment %}
-        <br>{{comments.comment}}<br>
-        {% endfor %}
+            <div class="container-fluid">
+                
+                <div class="row col-12 m-auto">
+
+                    {% if  user.is_authenticated %}
+                        <form class="form-group m-auto" action="{% url 'make_comment' topics.p_key %}", method="post">
+                            {% csrf_token %}
+                            <input  class="form-group input_person mr-5" type="text" name="comment" placeholder="Yout comment">
+                            <br>
+                            <input class="btn btn-success" type="submit" value="Create comment">
+                        </form>
+                    {% else %}
+                        <h1 class="text-center text-danger mt-3 mb-3 display-4">
+                            You need to login
+                        </h1>
+                    {% endif %}
+
+                    </div>
+                </div>
+        </div>
+
+        <div class="comenters">
+            <div class="container col-12 bg-white mt-5">
+                {% for comments in coment %}
+                    <p class="text-justify ml-4 mb-3 pt-3">Commented by: Unknow:</p>
+                    <h4 class="mt-2 ml-5"> {{comments.comment}}</h5>
+                        <hr>
+                {% endfor %}
+            </div>
+        </div>
+
+
             
 
 

@@ -35,6 +35,16 @@ textarea
   padding:3px;
 }
 
+article
+{
+    background-color: rgb(50, 50, 50);  
+}
+
+.input_person
+{
+    width: 100%;
+}
+
 footer
 {
     margin-top: 0px;
