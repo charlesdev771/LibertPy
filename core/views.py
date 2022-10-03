@@ -5,11 +5,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as login_django
 from django.contrib.auth.decorators import login_required
-
 from random import randint
 from time import sleep
 
-from .models import Topics
+from .models import Topics, Coments
 
 
 def login_render(request):
@@ -159,5 +158,32 @@ def delete_topic(request, p_key):
         
         print('Error in delete the topic'.format(error))        
 
+
+def view_detail(request, p_key):
+
+    try:
+        
+        topics = Topics.objects.filter(p_key=p_key).first()
+        coment = Coments.objects.filter(key_comment=p_key)
+        return render(request, 'pages/view_detail.html', {"topics":topics, "coment":coment})
+
+    except Exception as error:
+        
+        return HttpResponse(error) 
+
+def make_comment(request, p_key):
     
+    try:
+        
+        if request.method == "POST":
+            
+                unique_id = p_key        
+                comment = request.POST.get("comment")
+                accept = Coments(key_comment=unique_id, comment=comment)
+                accept.save()
+                
+                return render(request, 'pages/index.html')
+            
+    except Exception as error:
     
+        print('Error in updated the topic'.format(error))

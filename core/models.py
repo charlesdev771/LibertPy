@@ -1,4 +1,6 @@
 from enum import auto
+from secrets import choice
+from telnetlib import STATUS
 from unittest.util import _MAX_LENGTH
 from django.db import models
 
@@ -23,4 +25,11 @@ class Users(models.Model):
 
         return self.p_key_user, self.name_user, self.password_user
 
-        
+
+class Coments(models.Model):
+
+    key_comment = models.IntegerField(max_length=10, blank=True)
+    comment = models.CharField(max_length=77)
+
+    def __str__(self):
+        return self.comment

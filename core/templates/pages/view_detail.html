@@ -17,10 +17,10 @@
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- END Bootstrap CSS< JS -->
 
-
     <link rel="stylesheet" href="{% static 'style.css' %}">
 
     <title>LibertS</title>
+
   </head>
   <body>
 
@@ -44,66 +44,51 @@
 
     </nav>
 
+    <ul>
 
-    {% for topic in topics  %}
-      
-      {% if not topic %}
-          <h1 class="text-center text-dark display-1">
-            Erro na exibição dos dados...
-          </h1>
-      {% else %}
-      {{topic.p_key}}
-        <section class="bg-light" id="receitas">
-          <div class="container">
-            <div class="row justify-content-center">
-                <article class="card borda-card imagem-card p-0 m-4 col-12 col-md-4">
-                    <div class="card-body">
-                      <h2 class="card-title text-center">{{ topic.title_topic }}</h2>
-                      <p class="card-text text-justify">{{topic.text_topic}}</p>
-                      <a class="btn btn-success text-center" href="{% url 'view_detail' topic.p_key%}">Ver</a>
-                      <a class="btn btn-primary text-center" href="{% url 'update_render' topic.p_key %}">Editar</a>
-                      <a class="btn btn-danger text-center" href="{% url 'delete_render' topic.p_key %}">Excluir</a>
-                    </div>
-                </article>
+      <h2 class="card-title text-center">{{ topics.title_topic }}</h2>
+      <p class="card-text text-justify">{{topics.text_topic}}</p>
 
-            </div>
+    </ul>
+
+    <section class="bg-light" id="topic">
+        <div class="container">
+          <div class="row justify-content-center">
+              <article class="card borda-card imagem-card p-0 m-4 col-12 col-md-4">
+                  <div class="card-body">
+                    <h2 class="card-title text-center">{{ topics.title_topic }}</h2>
+                    <p class="card-text text-justify">{{topics.text_topic}}</p>
+                  </div>
+              </article>
+
           </div>
-        </section>
-        
-      {% endif %}
-        
-    {% endfor %}
-
-
-<footer class="text-center text-lg-start bg-dark text-muted">
-
-
-  <section class="">
-    <div class="container text-center text-md-start mt-5">
-      <div class="row mt-3">
-        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-          <h6 class="text-uppercase fw-bold mb-4">
-            <i class="fas fa-gem me-3"></i>Company name
-          </h6>
-          <p>
-            GITHUB: https://github.com/charlesdev771/LibertPy
-          </p>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Created by: chameleon 2022</a>
-  </div>
-</footer>
+        {% if  user.is_authenticated %}
+            <form action="{% url 'make_comment' topics.p_key %}", method="post">
+                {% csrf_token %}
+                <input type="text" name="comment" placeholder="Yout comment">
+                <input type="submit" value="Salvar">
+            </form>
+        {% else %}
+            <h1 class="text-center text-danger mt-3 mb-3 display-4">
+                You need to login
+            </h1>
+        {% endif %}
+
+        
+        {% for comments in coment %}
+        <br>{{comments.comment}}<br>
+        {% endfor %}
+            
 
 
+        
+            
 
-
-      
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
