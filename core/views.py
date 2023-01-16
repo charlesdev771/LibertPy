@@ -99,10 +99,10 @@ def save_data(request):
         if request.method == "POST":
             
                 unique_id = randint(0,777)  
-                name = request.POST.get("title")
-                name2 = request.POST.get("text_topic")
+                title = request.POST.get("title")
+                text_topic = request.POST.get("text_topic")
                 # dont call the function but the object profile
-                accept = Topics(unique_id, name, name2)
+                accept = Topics(unique_id, title, text_topic)
                 accept.save()
                 return render(request,"pages/topics.html")
 
@@ -130,8 +130,8 @@ def update_topic(request, p_key):
         if request.method == "POST":
             
                 unique_id = p_key        
-                name = request.POST.get("title")
-                name2 = request.POST.get("text_topic")
+                title = request.POST.get("title")
+                text_topic = request.POST.get("text_topic")
                 accept = Topics(unique_id, name, name2)
                 accept.save()
                 

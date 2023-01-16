@@ -7,7 +7,7 @@ from django.db import models
 # Create your models here.
 
 class Topics(models.Model):
-    p_key = models.IntegerField(max_length=20, primary_key=True)
+    p_key = models.IntegerField(primary_key=True)
     title_topic = models.CharField(max_length=100)
     text_topic = models.CharField(max_length=300)
     
@@ -28,7 +28,7 @@ class Users(models.Model):
 
 class Coments(models.Model):
 
-    key_comment = models.IntegerField(max_length=10, blank=True)
+    key_comment = models.IntegerField(blank=True)
     comment = models.CharField(max_length=77)
 
     def __str__(self):
